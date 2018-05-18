@@ -1,0 +1,28 @@
+{
+    "name": "adumskis/laravel-advert",
+    "description": "Advertising helper for laravel",
+    "authors": [
+        {
+            "name": "Algirdas",
+            "email": "algirdasdum@gmail.com"
+        }
+    ],
+    "require": {
+      "intervention/image": "^2.3"
+    },
+    "autoload": {
+      "psr-4": {
+        "Adumskis\\LaravelAdvert\\": "src"
+      }
+    },
+    "extra": {
+      "laravel": {
+        "providers": [
+          "Adumskis\\LaravelAdvert\\AdvertServiceProvider"
+        ],
+        "aliases": {
+          "AdvMng": "Adumskis\\LaravelAdvert\\AdvertFacade"
+        }
+      }
+    }
+}
