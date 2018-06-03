@@ -174,6 +174,13 @@ trait SettingsTrait
 			
 			return $paymentMethods;
 		});
+  //       var_dump(\App\Models\Package::trans()->applyCurrency()->count());
+  //       // var_dump(\App\Models\Package::trans()->get());
+
+		// echo "<pre>";
+		// print_r($this->paymentMethods->count());
+		// echo "<pre>";
+		// die;
 		$this->countPaymentMethods = $this->paymentMethods->count();
 		view()->share('paymentMethods', $this->paymentMethods);
 		view()->share('countPaymentMethods', $this->countPaymentMethods);

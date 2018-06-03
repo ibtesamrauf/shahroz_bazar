@@ -20,6 +20,39 @@
 |
 */
 
+
+Route::get('/ipack', function () {
+    $currency_var = \App\Models\Currency::get();
+    // echo "<pre>";
+    // print_r($currency_var);
+    // echo "</pre>";
+    // die;
+    foreach ($currency_var as $key => $value) {
+        \App\Models\Package::Create([
+                'translation_lang'  => 'ar',
+                'translation_of'    => '1',
+                'name'              => 'القائمة العادية',
+                'short_name'        => 'حر',
+                // 'ribbon'            => null,
+                'has_badge'  => 0,
+                'price'  => 10.00,
+                
+                'currency_code'  => $value->code,
+
+                'duration'  => 30,
+                'description'  => 'القائمة العادية',
+                'parent_id'  => 0,
+                'lft'  => 2,
+                'rgt'  => 3,
+                'depth'  => 1,
+                'active'  => 1,
+            ]);
+    }
+});
+
+
+
+
 Route::get('/ini', function () {
     phpinfo();
 });

@@ -46,6 +46,8 @@ trait PaymentTrait
             // Payment using the selected Payment Method
             if (!empty($plugin)) {
                 // Send the Payment
+                // var_dump($plugin);
+                // die;
                 try {
                     return call_user_func($plugin->class . '::sendPayment', $request, $post);
                 } catch (\Exception $e) {

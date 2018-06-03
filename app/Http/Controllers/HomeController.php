@@ -27,9 +27,16 @@ use Illuminate\Support\Facades\DB;
 use Torann\LaravelMetaTags\Facades\MetaTag;
 use App\Helpers\Localization\Helpers\Country as CountryLocalizationHelper;
 use App\Helpers\Localization\Country as CountryLocalization;
+use App\Http\Controllers\Search\Traits\TitleTrait;
+use App\Helpers\Search;
+use Illuminate\Support\Facades\Input;
+use App\Http\Controllers\Search\Traits\PreSearchTrait;
 
 class HomeController extends FrontController
 {
+	use TitleTrait;
+    use PreSearchTrait;
+
 	/**
 	 * HomeController constructor.
 	 */
@@ -76,10 +83,14 @@ class HomeController extends FrontController
 				}
 			}
 		}
-		
+
+        $city = $this->getCity(Input::get('l'),config('country.name')	);
+
 		// Get SEO
 		$this->setSeo();
-		
+		$this->getBreadcrumb();
+        $this->getHtmlTitle();
+
 		// Check and load Reviews plugin
 		$reviewsPlugin = load_installed_plugin('reviews');
 		view()->share('reviewsPlugin', $reviewsPlugin);

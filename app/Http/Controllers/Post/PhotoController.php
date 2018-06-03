@@ -107,6 +107,8 @@ class PhotoController extends FrontController
         
         // Get next step URI
         $creationPath = (getSegment(2) == 'create') ? 'create/' : '';
+
+
         if (
             isset($this->data['countPackages']) &&
             isset($this->data['countPaymentMethods']) &&
@@ -201,6 +203,7 @@ class PhotoController extends FrontController
         
         // Get next step URI
         $creationPath = (getSegment(2) == 'create') ? 'create/' : '';
+       
         if (
             isset($this->data['countPackages']) &&
             isset($this->data['countPaymentMethods']) &&
@@ -223,7 +226,8 @@ class PhotoController extends FrontController
         
         view()->share('nextStepUrl', $nextStepUrl);
         view()->share('nextStepLabel', $nextStepLabel);
-        
+        //  var_dump($this->data);
+        // die;
         
         // Ajax response
         if ($request->ajax()) {

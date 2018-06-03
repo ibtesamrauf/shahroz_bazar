@@ -40,6 +40,7 @@ return [
     'Location (City) ...' => 'الموقع (المدينة) ...',
     'What?' => 'ماذا ؟',
     'Where?' => 'أين ؟',
+    'Senegal' => 'السنغال',
     'Select your Location' => 'حدد موقعك',
     'Please select your location before' => 'يرجى تحديد موقعك من قبل',
     'Find' => 'تجد',

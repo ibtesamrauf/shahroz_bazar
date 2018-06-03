@@ -492,7 +492,7 @@ body{
             <div class="form-group">
                 <input type="hidden" id="lSearch" name="l" value="">
                 <input type="text" id="locSearch" name="location" class="form-control"
-                                               placeholder="{{ t('Where?') }}" value="">
+                                               placeholder="{{ t('Senegal') }}" value="">
             </div>
             
             <input class="btn btn-primary" type="submit" value="{{ t('Find') }}" style="padding: 7px 12px;" />

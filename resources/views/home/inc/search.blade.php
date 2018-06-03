@@ -1,4 +1,8 @@
-<?php
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <?php
 // Init.
 $sForm = [
     'enableFormAreaCustomization' => '0',
@@ -105,29 +109,74 @@ if (file_exists(config('larapen.core.maps.path') . config('country.icode') . '.s
                         <div class="row search-row fadeInUp">
                             <?php $attr = ['countryCode' => config('country.icode')]; ?>
                             <form id="seach" name="search" action="{{ lurl(trans('routes.v-search', $attr), $attr) }}" method="GET">
-                                <div class="col-lg-5 col-sm-5 search-col relative">
+                                <div class="col-lg-4 col-sm-4 search-col relative">
                                     <i class="icon-docs icon-append"></i>
                                     <input type="text" name="q" class="form-control keyword has-icon" placeholder="{{ t('What?') }}" value="">
                                 </div>
-                                <div class="col-lg-5 col-sm-5 search-col relative locationicon">
+                                <div class="col-lg-3 col-sm-3 search-col relative locationicon">
                                     <i class="icon-location-2 icon-append"></i>
                                     <input type="hidden" id="lSearch" name="l" value="">
+
                                     @if ($showMap)
-                                        <input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon tooltipHere"
-                                               placeholder="{{ t('Where?') }}" value="" title="" data-placement="bottom"
+                                        <select name="location" onChange="myNewFunction(this);" id="locSearch" class="form-control keyword has-icon locinput searchtag-input tooltipHere" style="height:45px">
+                                            @if (isset($countryCols))
+                                                @foreach ($countryCols as $key => $col)   
+                                                    @foreach ($col as $k => $country)
+                                                        <?php
+                                                        $countryLang = App\Helpers\Localization\Country::getLangFromCountry($country->get('languages'));
+                                                        ?>
+                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="{{ str_limit($country->get('name'), 100) }}">{{ str_limit($country->get('name'), 100) }}</option>
+                                                    @endforeach  
+                                                @endforeach
+                                            @endif
+                                        </select>       
+
+                                        <!-- <input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon tooltipHere"
+                                               placeholder="{{ t('Senegal') }}" value="" title="" data-placement="bottom"
                                                data-toggle="tooltip" type="button"
-                                               data-original-title="{{ t('Enter a city name OR a state name with the prefix ":prefix" like: :prefix', ['prefix' => t('area:')]) . t('State Name') }}">
+                                               data-original-title="{{ t('Enter a city name OR a state name with the prefix ":prefix" like: :prefix', ['prefix' => t('area:')]) . t('State Name') }}"> -->
                                     @else
-                                        <input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon"
-                                               placeholder="{{ t('Where?') }}" value="">
+                                        <select name="location" onChange="myNewFunction(this);" id="locSearch" class="form-control keyword has-icon locinput searchtag-input tooltipHere" style="height:45px">
+                                            @if (isset($countryCols))
+                                                @foreach ($countryCols as $key => $col)   
+                                                    @foreach ($col as $k => $country)
+                                                        <?php
+                                                        $countryLang = App\Helpers\Localization\Country::getLangFromCountry($country->get('languages'));
+                                                        ?>
+                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="{{ str_limit($country->get('name'), 100) }}">{{ str_limit($country->get('name'), 100) }}</option>
+                                                    @endforeach  
+                                                @endforeach
+                                            @endif
+                                        </select>       
+                                        <!-- <input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon"
+                                               placeholder="{{ t('Senegal') }}" value=""> -->
                                     @endif
+                                </div>
+
+                                <div class="col-lg-3 col-sm-3 search-col relative">
+                                    @if (isset($bcTab) and count($bcTab) > 0)
+                                        @foreach($bcTab as $key => $value)
+                                            <?php $value = collect($value); ?>
+                                            @if ($value->has('position') and $value->get('position') > count($bcTab)+1)
+                                                <li class="form-control keyword has-icon active">
+                                                    {!! $value->get('name') !!}
+                                                    &nbsp;
+                                                    @if (isset($city) or isset($admin))
+                                                        <a href="#browseAdminCities" id="dropdownMenu1" data-toggle="modal"> <span class="caret"></span> </a>
+                                                    @endif
+                                                </li>
+                                            @else
+                                                <li><a href="{{ $value->get('url') }}">{!! $value->get('name') !!}</a></li>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                    <i class="icon-docs icon-append"></i>
                                 </div>
                                 <div class="col-lg-2 col-sm-2 search-col">
                                     <button class="btn btn-primary btn-search btn-block">
                                         <i class="icon-search"></i> <strong>{{ t('Find') }}</strong>
                                     </button>
                                 </div>
-                                {!! csrf_field() !!}
                             </form>
                         </div>
                     @endif
@@ -148,29 +197,71 @@ if (file_exists(config('larapen.core.maps.path') . config('country.icode') . '.s
                         <div class="row search-row fadeInUp">
                             <?php $attr = ['countryCode' => config('country.icode')]; ?>
                             <form id="seach" name="search" action="{{ lurl(trans('routes.v-search', $attr), $attr) }}" method="GET">
-                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 search-col relative">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 search-col relative">
                                     <i class="icon-docs icon-append"></i>
                                     <input type="text" name="q" class="form-control keyword has-icon" placeholder="{{ t('What?') }}" value="">
                                 </div>
-                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 search-col relative locationicon">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 search-col relative locationicon">
                                     <i class="icon-location-2 icon-append"></i>
                                     <input type="hidden" id="lSearch" name="l" value="">
                                     @if ($showMap)
-                                        <input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon tooltipHere"
-                                               placeholder="{{ t('Where?') }}" value="" title="" data-placement="bottom"
+                                        <select name="location" onChange="myNewFunction(this);" id="locSearch" class="form-control keyword has-icon locinput searchtag-input tooltipHere" style="height:45px">
+                                            @if (isset($countryCols))
+                                                @foreach ($countryCols as $key => $col)   
+                                                    @foreach ($col as $k => $country)
+                                                        <?php
+                                                        $countryLang = App\Helpers\Localization\Country::getLangFromCountry($country->get('languages'));
+                                                        ?>
+                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="{{ str_limit($country->get('name'), 100) }}">{{ str_limit($country->get('name'), 100) }}</option>
+                                                    @endforeach  
+                                                @endforeach
+                                            @endif
+                                        </select>       
+                                        <!-- <input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon tooltipHere"
+                                               placeholder="{{ t('Senegal') }}" value="" title="" data-placement="bottom"
                                                data-toggle="tooltip" type="button"
-                                               data-original-title="{{ t('Enter a city name OR a state name with the prefix ":prefix" like: :prefix', ['prefix' => t('area:')]) . t('State Name') }}">
+                                               data-original-title="{{ t('Enter a city name OR a state name with the prefix ":prefix" like: :prefix', ['prefix' => t('area:')]) . t('State Name') }}"> -->
                                     @else
-                                        <input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon"
-                                               placeholder="{{ t('Where?') }}" value="">
+                                        <select name="location" onChange="myNewFunction(this);" id="locSearch" class="form-control keyword has-icon locinput searchtag-input tooltipHere" style="height:45px">
+                                            @if (isset($countryCols))
+                                                @foreach ($countryCols as $key => $col)   
+                                                    @foreach ($col as $k => $country)
+                                                        <?php
+                                                        $countryLang = App\Helpers\Localization\Country::getLangFromCountry($country->get('languages'));
+                                                        ?>
+                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="{{ str_limit($country->get('name'), 100) }}">{{ str_limit($country->get('name'), 100) }}</option>
+                                                    @endforeach  
+                                                @endforeach
+                                            @endif
+                                        </select>       
+<!--                                         <input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon"
+                                               placeholder="{{ t('Senegal') }}" value=""> -->
                                     @endif
+                                </div>
+                                <div class="col-lg-3 col-sm-3 col-sm-3 col-xs-12 search-col relative">
+                                    @if (isset($bcTab) and count($bcTab) > 0)
+                                        @foreach($bcTab as $key => $value)
+                                            <?php $value = collect($value); ?>
+                                            @if ($value->has('position') and $value->get('position') > count($bcTab)+1)
+                                                <li class="form-control keyword has-icon active">
+                                                    {!! $value->get('name') !!}
+                                                    &nbsp;
+                                                    @if (isset($city) or isset($admin))
+                                                        <a href="#browseAdminCities" id="dropdownMenu1" data-toggle="modal"> <span class="caret"></span> </a>
+                                                    @endif
+                                                </li>
+                                            @else
+                                                <li><a href="{{ $value->get('url') }}">{!! $value->get('name') !!}</a></li>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                    <i class="icon-docs icon-append"></i>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 search-col">
                                     <button class="btn btn-primary btn-search btn-block">
                                         <i class="icon-search"></i> <strong>{{ t('Find') }}</strong>
                                     </button>
                                 </div>
-                                {!! csrf_field() !!}
                             </form>
                         </div>
     
@@ -181,3 +272,15 @@ if (file_exists(config('larapen.core.maps.path') . config('country.icode') . '.s
     </div>
     
 @endif
+@section('modal_location')
+    @include('layouts.inc.modal.location')
+@endsection
+<script>
+    function myNewFunction(sel)
+    {
+        // console.log(sel.options[sel.selectedIndex].title);
+        var url = sel.options[sel.selectedIndex].title;
+        window.location.href = url; // redirect
+    }
+</script>
+

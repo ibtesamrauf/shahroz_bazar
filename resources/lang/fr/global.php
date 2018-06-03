@@ -40,6 +40,7 @@ return [
     'Location (City) ...' => 'Lieu (Ville/Commune) ...',
     'What?' => 'Quoi ?',
     'Where?' => 'Où ?',
+    'Senegal' => 'Sénégal',
     'Select your Location' => 'Sélectionnez votre région',
     'Please select your location before' => 'Sélectionnez votre région ci-dessus',
     'Find' => 'Trouver',

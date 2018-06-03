@@ -40,6 +40,12 @@
 									<div>
 										<h3 class="title-2"><i class="icon-location-2"></i> {{ t('Select a country') }} </h3>
 										<div class="row" style="padding: 0 20px">
+										<?php 
+										echo "<pre>";
+										print_r($countryCols);
+										echo "</pre>";
+
+										?>
 											@foreach ($countryCols as $key => $col)
 												<ul class="cat-list col-xs-3 {{ (count($countryCols) == $key+1) ? 'cat-list-border' : '' }}">
 													@foreach ($col as $k => $country)

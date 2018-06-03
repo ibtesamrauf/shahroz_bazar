@@ -38,10 +38,23 @@ if (isset($city) and !empty($city)) {
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 search-col locationicon">
 					<i class="icon-location-2 icon-append"></i>
-					<input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon tooltipHere"
-						   placeholder="{{ t('Where?') }}" value="{{ $qLocation }}" title="" data-placement="bottom"
+					<select name="location" onChange="myNewFunction(this);" id="locSearch" class="form-control keyword has-icon locinput searchtag-input tooltipHere" style="height:45px">
+                        @if (isset($countryCols))
+                            <?php $location_get = Input::get('location'); ?>
+                            @foreach ($countryCols as $key => $col)   
+                                @foreach ($col as $k => $country)
+                                    <?php
+                                    $countryLang = App\Helpers\Localization\Country::getLangFromCountry($country->get('languages'));
+                                    ?>
+                                    <option {{ config('country.name') == $country->get('name') ? 'selected' : '' }}  {{ $location_get == str_limit($country->get('name'), 100) ? 'selected' : '' }} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="{{ str_limit($country->get('name'), 100) }}">{{ str_limit($country->get('name'), 100) }}</option>
+                                @endforeach  
+                            @endforeach
+                        @endif
+                    </select>
+					<!-- <input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon tooltipHere"
+						   placeholder="{{ t('Senegal') }}" value="{{ $qLocation }}" title="" data-placement="bottom"
 						   data-toggle="tooltip" type="button"
-						   data-original-title="{{ t('Enter a city name OR a state name with the prefix ":prefix" like: :prefix', ['prefix' => t('area:')]) . t('State Name') }}">
+						   data-original-title="{{ t('Enter a city name OR a state name with the prefix ":prefix" like: :prefix', ['prefix' => t('area:')]) . t('State Name') }}"> -->
 				</div>
 
 				<input type="hidden" id="lSearch" name="l" value="{{ $qLocationId }}">
@@ -58,3 +71,12 @@ if (isset($city) and !empty($city)) {
 	</div>
 	<!-- /.search-row  width: 24.6%; -->
 </div>
+
+<script>
+    function myNewFunction(sel)
+    {
+        // console.log(sel.options[sel.selectedIndex].title);
+        var url = sel.options[sel.selectedIndex].title;
+        window.location.href = url; // redirect
+    }
+</script>

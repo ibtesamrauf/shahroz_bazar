@@ -86,8 +86,8 @@
                                                                     <div class="radio">
                                                                         <label>
                                                                             <input class="package-selection" type="radio" name="package"
-                                                                                   id="package-{{ $package->tid }}"
-                                                                                   value="{{ $package->tid }}"
+                                                                                   id="package-172"
+                                                                                   value="172"
 																				   data-name="{{ $package->name }}"
 																				   data-currencysymbol="{{ $package->currency->symbol }}"
 																				   data-currencyinleft="{{ $package->currency->in_left }}"

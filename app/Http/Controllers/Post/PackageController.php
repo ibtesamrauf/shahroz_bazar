@@ -185,7 +185,6 @@ class PackageController extends FrontController
         } else {
             $post = Post::withoutGlobalScopes([VerifiedScope::class, ReviewedScope::class])->where('user_id', auth()->user()->id)->where('id', $postIdOrToken)->first();
         }
-
         if (empty($post)) {
             abort(404);
         }
@@ -205,6 +204,19 @@ class PackageController extends FrontController
         $package = Package::find($request->input('package'));
         if (!empty($package) && $package->price > 0 && $request->filled('payment_method') && !$alreadyPaidPackage) {
             // Send the Payment
+            // echo "<pre>";
+            // print_r($request);
+            // echo "</pre>";
+
+//             echo "<pre>";
+//             print_r($post);
+//             echo "</pre>";
+
+//             echo "<pre>";
+//             print_r($request->filled('payment_method'));
+//             echo "</pre>";
+            
+// die;
             return $this->sendPayment($request, $post);
         }
 

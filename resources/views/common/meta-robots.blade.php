@@ -6,6 +6,6 @@
 		(str_contains(\Route::currentRouteAction(), 'Search\CityController') and config('settings.seo.no_index_cities') == true) or
 		(str_contains(\Route::currentRouteAction(), 'Search\UserController') and config('settings.seo.no_index_users') == true)
 	)
-	<meta name="robots" content="noindex,nofollow">
-	<meta name="googlebot" content="noindex">
+	<!-- <meta name="robots" content="noindex,nofollow">
+	<meta name="googlebot" content="noindex"> -->
 @endif

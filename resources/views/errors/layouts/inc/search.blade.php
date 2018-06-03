@@ -20,7 +20,7 @@ $searchUrl = url(config('app.locale') . '/' . trans('routes.v-search', ['country
 								<i class="icon-location-2 icon-append"></i>
 								<input type="hidden" id="l_search" name="l" value="">
 								<input type="text" id="loc_search" name="location" class="form-control locinput input-rel searchtag-input has-icon"
-									   placeholder="{{ t('Where?') }}" value="">
+									   placeholder="{{ t('Senegal') }}" value="">
 							</div>
 							<div class="col-lg-2 col-sm-2 search-col">
 								<button class="btn btn-primary btn-search btn-block"><i class="icon-search"></i><strong>{{ t('Find') }}</strong>

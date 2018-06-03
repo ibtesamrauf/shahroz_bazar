@@ -335,7 +335,7 @@ EOF;
 <html>
     <head>
         <meta charset="{$this->charset}" />
-        <meta name="robots" content="noindex,nofollow" />
+
         <style>$css</style>
     </head>
     <body>
