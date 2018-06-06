@@ -51,6 +51,50 @@ Route::get('/ipack', function () {
 });
 
 
+Route::get('/posts_fake', function () {
+    $country_var = \App\Models\Country::get();
+    echo "<pre>";
+    print_r($country_var);
+    echo "</pre>";
+    die;
+    foreach ($country_var as $key => $value) {
+        $city_var = \App\Models\City::where('country_code',$value->code)->first();
+
+        \App\Models\Post::Create([
+                
+                'country_code'  => $value->code,
+                
+                'user_id'  => 5,
+                'category_id'  => 144,
+
+                'post_type_id'  => 1,
+                'title'  => "test post ".$key,
+                'description'  => $key." test description for test posts or test products for all regions. 
+                 test description for test posts or test products for all regions.
+                  test description for test posts or test products for all regions.",
+                'tags'  => "testing
+                testing",
+                'price'  => 200+$key,
+                'negotiable'  => 0,
+                'contact_name'  => "test".$key,
+                'email'  => "test@email.com",
+                'phone'  => "031234567".$key,
+                'address'  => "test address 123",
+
+                'city_id'  => $city_var->id,
+                'lon'  => $city_var->longitude,
+                'lat'  => $city_var->latitude,
+                'ip_addr'  => "111.119.184.87",
+                
+                'visits'  => 1,
+                'verified_email'  => 1,
+                'verified_phone'  => 1,
+
+            ]);
+    }
+});
+
+
 
 
 Route::get('/ini', function () {
