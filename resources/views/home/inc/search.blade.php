@@ -125,7 +125,7 @@ if (file_exists(config('larapen.core.maps.path') . config('country.icode') . '.s
                                                         <?php
                                                         $countryLang = App\Helpers\Localization\Country::getLangFromCountry($country->get('languages'));
                                                         ?>
-                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="{{ str_limit($country->get('name'), 100) }}">{{ str_limit($country->get('name'), 100) }}</option>
+                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="">{{ str_limit($country->get('name'), 100) }}</option>
                                                     @endforeach  
                                                 @endforeach
                                             @endif
@@ -143,7 +143,7 @@ if (file_exists(config('larapen.core.maps.path') . config('country.icode') . '.s
                                                         <?php
                                                         $countryLang = App\Helpers\Localization\Country::getLangFromCountry($country->get('languages'));
                                                         ?>
-                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="{{ str_limit($country->get('name'), 100) }}">{{ str_limit($country->get('name'), 100) }}</option>
+                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="">{{ str_limit($country->get('name'), 100) }}</option>
                                                     @endforeach  
                                                 @endforeach
                                             @endif
@@ -212,7 +212,7 @@ if (file_exists(config('larapen.core.maps.path') . config('country.icode') . '.s
                                                         <?php
                                                         $countryLang = App\Helpers\Localization\Country::getLangFromCountry($country->get('languages'));
                                                         ?>
-                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="{{ str_limit($country->get('name'), 100) }}">{{ str_limit($country->get('name'), 100) }}</option>
+                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="">{{ str_limit($country->get('name'), 100) }}</option>
                                                     @endforeach  
                                                 @endforeach
                                             @endif
@@ -229,7 +229,7 @@ if (file_exists(config('larapen.core.maps.path') . config('country.icode') . '.s
                                                         <?php
                                                         $countryLang = App\Helpers\Localization\Country::getLangFromCountry($country->get('languages'));
                                                         ?>
-                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="{{ str_limit($country->get('name'), 100) }}">{{ str_limit($country->get('name'), 100) }}</option>
+                                                        <option  {{ config('country.name', 0)==$country->get('name') ? 'selected' : ''}} title="{{ url($countryLang->get('abbr') . '?d=' . $country->get('code')) }}" value="">{{ str_limit($country->get('name'), 100) }}</option>
                                                     @endforeach  
                                                 @endforeach
                                             @endif
