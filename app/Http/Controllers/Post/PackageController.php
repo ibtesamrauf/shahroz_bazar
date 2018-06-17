@@ -176,6 +176,7 @@ class PackageController extends FrontController
      */
     public function postForm($postIdOrToken, PackageRequest $request)
     {
+
         // Get Post
         if (getSegment(2) == 'create') {
             if (!session()->has('tmpPostId')) {
@@ -202,24 +203,11 @@ class PackageController extends FrontController
 
         // Check if Payment is required
         $package = Package::find($request->input('package'));
+        
         if (!empty($package) && $package->price > 0 && $request->filled('payment_method') && !$alreadyPaidPackage) {
             // Send the Payment
-            // echo "<pre>";
-            // print_r($request);
-            // echo "</pre>";
-
-//             echo "<pre>";
-//             print_r($post);
-//             echo "</pre>";
-
-//             echo "<pre>";
-//             print_r($request->filled('payment_method'));
-//             echo "</pre>";
-            
-// die;
             return $this->sendPayment($request, $post);
         }
-
         // IF NO PAYMENT IS MADE (CONTINUE)
         
         // Get the next URL
