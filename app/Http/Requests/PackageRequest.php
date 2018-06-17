@@ -30,7 +30,7 @@ class PackageRequest extends Request
         $rules = [];
     
         // Get all the Packages & Payment Methods in the database
-        $countPackages = Package::where('translation_lang', config('app.locale'))->count();
+        $countPackages = Package::where('translation_lang', 'USD')->count();
         $countPaymentMethods = PaymentMethod::count();
     
         // Check if 'package' & 'payment_method' are required

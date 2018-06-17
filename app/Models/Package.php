@@ -136,7 +136,7 @@ class Package extends BaseModel
 	public function scopeApplyCurrency($builder)
 	{
 		if (config('settings.geo_location.local_currency_packages_activation')) {
-			$builder->where('currency_code', config('country.currency'));
+			$builder->where('currency_code', 'USD');
 		}
 		
 		return $builder;
