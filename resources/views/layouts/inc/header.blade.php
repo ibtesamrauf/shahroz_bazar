@@ -126,6 +126,12 @@ if (getSegment(1) != trans('routes.countries')) {
     height: 350px;
     max-height:350px;
 }
+@media (max-width: 600px) {
+    .wide-intro {
+        height: 450px;
+        max-height:450px;
+    }   
+}
 .copy-info{
     color:#f0ece6;
     font-size: 14px;
